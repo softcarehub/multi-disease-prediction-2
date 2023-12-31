@@ -1,5 +1,3 @@
-
-
 import pickle
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -24,8 +22,11 @@ with st.sidebar:
                            ],
                           icons=['activity','heart','person'],
                           default_index=0)
-    st.subheader('Copyright©2023 Md. Bariul Munshi')
-    
+    dataset = "https://drive.google.com/drive/folders/15k-0dPKuYCOP5nirLimBbOS7k0pxDNE4?usp=sharing" 
+    parkinsons = "https://www.linkedin.com/in/md-bariul-munshi/"
+    st.markdown("[Get User-Guide](%s)" % dataset)
+    url = "https://www.linkedin.com/in/md-bariul-munshi/" 
+    st.write("Copyright©2023[Md. Bariul Munshi](%s)" % url)
     
     
 # Diabetes Prediction Page 
@@ -33,6 +34,7 @@ if (selected == 'Diabetes Prediction'):
     
     # page title
     st.title('Diabetes Prediction using ML')
+    
     
     
     # getting the input data from the user
@@ -110,56 +112,53 @@ if(selected == "Parkinson's Prediction"):
 
     # Input fields in the first column
     with col1:
-        fo = st.number_input('MDVP:Fo (fo)', key='fo')
-        fhi = st.number_input('MDVP:Fhi (fhi)', key='fhi')
-        Shimmer = st.number_input('MDVP:Shimmer (shimmer)', key='shimmer')
-        APQ = st.number_input('MDVP:APQ (apq)', key='apq')
-        RPDE = st.number_input('RPDE (rpde)', key='rpde')
+        fo = st.text_input('MDVP:Fo (fo)', key='fo')
+        fhi = st.text_input('MDVP:Fhi (fhi)', key='fhi')
+        Shimmer = st.text_input('MDVP:Shimmer (shimmer)', key='shimmer')
+        APQ = st.text_input('MDVP:APQ (apq)', key='apq')
+        RPDE = st.text_input('RPDE (rpde)', key='rpde')
 
     # Input fields in the second column
     with col2:
-        flo = st.number_input('MDVP:Flo (flo)', key='flo')
-        Jitter_percent = st.number_input('MDVP:Jitter (%) (jitter_percent)', key='jitter_percent')
-        Shimmer_dB = st.number_input('MDVP:Shimmer (dB) (shimmer_db)', key='shimmer_db')
-        DDA = st.number_input('Shimmer:DDA (dda)', key='dda')
-        DFA = st.number_input('DFA (dfa)', key='dfa')
+        flo = st.text_input('MDVP:Flo (flo)', key='flo')
+        Jitter_percent = st.text_input('MDVP:Jitter (%) (jitter_percent)', key='jitter_percent')
+        Shimmer_dB = st.text_input('MDVP:Shimmer (dB) (shimmer_db)', key='shimmer_db')
+        DDA = st.text_input('Shimmer:DDA (dda)', key='dda')
+        DFA = st.text_input('DFA (dfa)', key='dfa')
 
     # Input fields in the third column
     with col3:
-        Jitter_Abs = st.number_input('MDVP:Jitter (Abs) (jitter_abs)', key='jitter_abs')
-        RAP = st.number_input('MDVP:RAP (rap)', key='rap')
-        APQ3 = st.number_input('Shimmer:APQ3 (apq3)', key='apq3')
-        NHR = st.number_input('NHR (nhr)', key='nhr')
-        spread1 = st.number_input('spread1 (spread1)', key='spread1')
+        Jitter_Abs = st.text_input('MDVP:Jitter (Abs) (jitter_abs)', key='jitter_abs')
+        RAP = st.text_input('MDVP:RAP (rap)', key='rap')
+        APQ3 = st.text_input('Shimmer:APQ3 (apq3)', key='apq3')
+        NHR = st.text_input('NHR (nhr)', key='nhr')
+        spread1 = st.text_input('spread1 (spread1)', key='spread1')
 
     # Input fields in the fourth column
     with col4:
-        PPQ = st.number_input('MDVP:PPQ (ppq)', key='ppq')
-        DDP = st.number_input('Jitter:DDP (ddp)', key='ddp')
-        APQ5 = st.number_input('Shimmer:APQ5 (apq5)', key='apq5')
-        HNR = st.number_input('HNR (hnr)', key='hnr')
-        spread2 = st.number_input('spread2 (spread2)', key='spread2')
+        PPQ = st.text_input('MDVP:PPQ (ppq)', key='ppq')
+        DDP = st.text_input('Jitter:DDP (ddp)', key='ddp')
+        APQ5 = st.text_input('Shimmer:APQ5 (apq5)', key='apq5')
+        HNR = st.text_input('HNR (hnr)', key='hnr')
+        spread2 = st.text_input('spread2 (spread2)', key='spread2')
 
     # Input fields in the fifth column
     with col5:
         # Additional inputs
-        D2 = st.number_input('D2 (d2)', key='d2')
-        PPE = st.number_input('PPE (ppe)', key='ppe')
+        D2 = st.text_input('D2 (d2)', key='d2')
+        PPE = st.text_input('PPE (ppe)', key='ppe')
 
         
-    #Code for prediction
     parkinsons_diagnosis = ''
-        
-    #Creating a button for prediction
-        
+
+    # Creating a button for prediction
     if st.button('Parkinsons Test Result'):
-            parkinsons_prediction = parkinsons_model.predict([[fo, fhi, flo, Jitter_percent, Jitter_Abs, RAP, PPQ, DDP, Shimmer, Shimmer_dB, APQ3, APQ5, APQ, DDA, NHR, HNR, RPDE, DFA, spread1, spread2, D2, PPE]])
-            
-            if (parkinsons_prediction[0]==1):
-                parkinsons_diagnosis = 'The person is suffering from Parkinsons disease'
-                
+        if (fo and fhi and flo and Jitter_percent and Jitter_Abs and RAP and PPQ and DDP and Shimmer and Shimmer_dB and APQ3 and APQ5 and APQ and DDA and NHR and HNR and RPDE and DFA and spread1 and spread2 and D2 and PPE):
+            parkinsons_prediction = parkinsons_model.predict([[float(fo), float(fhi), float(flo), float(Jitter_percent), float(Jitter_Abs), float(RAP), float(PPQ), float(DDP), float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5), float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE), float(DFA), float(spread1), float(spread2), float(D2), float(PPE)]])
+
+            if (parkinsons_prediction[0] == 1):
+                st.error('The person is suffering from Parkinsons disease')
             else:
-                parkinsons_diagnosis = 'The person is Not suffering from Parkinsons disease'
-                
-                
-    st.success(parkinsons_diagnosis)
+                st.success('The person is Not suffering from Parkinsons disease 😊')
+        else:
+            st.warning("Please fill all details")

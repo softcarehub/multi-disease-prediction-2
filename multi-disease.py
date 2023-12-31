@@ -8,9 +8,9 @@ from streamlit_option_menu import option_menu
 st.set_page_config(page_title='Multi-disease Prediction',  layout = 'wide', initial_sidebar_state = 'auto')
 # favicon being an object of the same kind as the one you should provide st.image() with (ie. a PIL array for example) or a string (url or local file path)
 
-diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
+diabetes_model = pickle.load(open('Diabetes_RandomForest_model.sav', 'rb'))
 #parkinsons_model = pickle.load(open('parkinsons_model.sav', 'rb'))
-heart_disease_model = pickle.load(open('heart_disease_model.sav','rb'))
+heart_disease_model = pickle.load(open('heart_Adaboost_model.sav','rb'))
 
 # sidebar for navigation
 with st.sidebar:

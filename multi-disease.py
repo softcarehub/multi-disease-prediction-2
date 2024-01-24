@@ -12,7 +12,7 @@ parkinsons_model = pickle.load(open('parkinsons_Stacking_Ensemble_model.sav', 'r
 
 # sidebar for navigation
 with st.sidebar:
-    st.title('Disease Prediction System')
+    st.title('Multi-Disease Prediction System')
     st.markdown("---")  # Add a horizontal line for separation
     selected = option_menu('Select Disease',
                           

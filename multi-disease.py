@@ -26,8 +26,9 @@ with st.sidebar:
     parkinsons = "https://www.linkedin.com/in/md-bariul-munshi/"
     st.markdown("[Get User-Guide](%s)" % dataset)
     url = "https://www.linkedin.com/in/md-bariul-munshi/" 
+    st.image('profile.png', caption='Developer')
+    #st.image('profile2.jpg', caption='Developer')
     st.write("Copyright©2023[Md. Bariul Munshi](%s)" % url)
-    
     
 # Diabetes Prediction Page 
 if (selected == 'Diabetes Prediction'):

@@ -12,7 +12,7 @@ parkinsons_model = pickle.load(open('parkinsons_Stacking_Ensemble_model.sav', 'r
 
 # sidebar for navigation
 with st.sidebar:
-    st.title('Multi-Disease Prediction System')
+    st.title('Multi-Disease Prediction')
     st.markdown("---")  # Add a horizontal line for separation
     selected = option_menu('Select Disease',
                           
@@ -22,12 +22,12 @@ with st.sidebar:
                            ],
                           icons=['activity','heart','person'],
                           default_index=0)
-    dataset = "https://drive.google.com/drive/folders/15k-0dPKuYCOP5nirLimBbOS7k0pxDNE4?usp=sharing" 
+    dataset = "https://drive.google.com/drive/folders/1KvpEZYLyCKv1uASTbX4c77gB1btmsIYQ?usp=sharing" 
     parkinsons = "https://www.linkedin.com/in/md-bariul-munshi/"
     st.markdown("[Get User-Guide](%s)" % dataset)
     url = "https://www.linkedin.com/in/md-bariul-munshi/" 
     #st.image('profile.png', caption='Developer')
-    #st.image('profile2.jpg', caption='Developer')
+    st.image('profile2.jpg', caption='Developer')
     st.write("Copyright©2023[Md. Bariul Munshi](%s)" % url)
     
 # Diabetes Prediction Page 

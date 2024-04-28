@@ -30,15 +30,12 @@ with st.sidebar:
     st.image('profile2.jpg', caption='Developer')
     st.write("Copyright©2023[Md. Bariul Munshi](%s)" % url)
     
-# Diabetes Prediction Page 
-if (selected == 'Diabetes Prediction'):
-    
-    # page title
+# Diabetes Prediction Page
+if selected == 'Diabetes Prediction':
+    # Page title
     st.title('Diabetes Prediction using ML')
-    
-    
-    
-    # getting the input data from the user
+
+    # Getting the input data from the user
     col1, col2, col3 = st.columns(3)
     with col1:
         Pregnancies = st.text_input('Number of Pregnancies')
@@ -51,25 +48,38 @@ if (selected == 'Diabetes Prediction'):
     with col3:
         DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
         Age = st.text_input("Age")
-    # code for Prediction
+
+    # Code for Prediction
     diab_diagnosis = ''
-    # creating a button for Prediction
+
+    # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-        if(Pregnancies and Glucose and BloodPressure and SkinThickness and Insulin and BMI and DiabetesPedigreeFunction and Age) : 
+        if Pregnancies and Glucose and BloodPressure and SkinThickness and Insulin and BMI and DiabetesPedigreeFunction and Age:
+            # Make predictions
             diab_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
-            if (diab_prediction[0] == 1):
-                diab_diagnosis = 'The person is diabetic 🥺'
-                st.error(diab_diagnosis)
+            confidence = diabetes_model.predict_proba([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
+
+            # Check if predictions are available
+            if len(confidence) > 0:
+                # Calculate the confidence percentage for the predicted class
+                confidence_percentage = max(confidence[0]) * 100
+
+                if diab_prediction[0] == 1:
+                    diab_diagnosis = 'The person is diabetic 🥺 with {:.2f}% confidence'.format(confidence_percentage)
+                    st.error(diab_diagnosis)
+                else:
+                    diab_diagnosis = 'The person is not diabetic 😊 with {:.2f}% confidence'.format(confidence_percentage)
+                    st.success(diab_diagnosis)
             else:
-                diab_diagnosis = 'The person is not diabetic 😊'
-                #st.balloons()
-                st.success(diab_diagnosis)
-        else : 
+                st.warning("Confidence percentages are not available for this model.")
+        else:
             st.warning("Please fill all details")
 # Heart Disease Prediction Page
-if (selected == 'Heart Disease Prediction'):
-    # page title
+if selected == 'Heart Disease Prediction':
+    # Page title
     st.title('Heart Disease Prediction using ML')
+
+    # Input fields
     col1, col2, col3 = st.columns(3)
     with col1:
         age = st.text_input("Age")
@@ -87,28 +97,39 @@ if (selected == 'Heart Disease Prediction'):
         slope = st.text_input('Slope of the peak exercise ST segment')
         ca = st.text_input('Major vessels colored by flourosopy')        
         thal = st.text_input('thal: 0 = normal; 1 = fixed; 2 = reversable')
-     
-    # code for Prediction
+
+    # Code for Prediction
     heart_diagnosis = ''
-    # creating a button for Prediction
+
+    # Creating a button for Prediction
     if st.button('Heart Disease Test Result'):
-        
-        if(age and sex and cp and trestbps and chol and fbs and restecg and thalach and exang and oldpeak and slope and ca and thal) : 
-            heart_prediction = heart_disease_model.predict([[int(age), int(sex), int(cp), int(trestbps), int(chol), int(fbs), int(restecg),int(thalach),int(exang),float(oldpeak),int(slope),int(ca),int(thal)]])
-            if (heart_prediction[0] == 1):
-                st.error('The person is having heart disease')
+        if age and sex and cp and trestbps and chol and fbs and restecg and thalach and exang and oldpeak and slope and ca and thal:
+            # Make predictions
+            heart_prediction = heart_disease_model.predict([[int(age), int(sex), int(cp), int(trestbps), int(chol), int(fbs), int(restecg), int(thalach), int(exang), float(oldpeak), int(slope), int(ca), int(thal)]])
+            confidence = heart_disease_model.predict_proba([[int(age), int(sex), int(cp), int(trestbps), int(chol), int(fbs), int(restecg), int(thalach), int(exang), float(oldpeak), int(slope), int(ca), int(thal)]])
+            
+            # Check if predictions are available
+            if len(confidence) > 0:
+                # Calculate the confidence percentage for the predicted class
+                confidence_percentage = max(confidence[0]) * 100
+
+                if heart_prediction[0] == 1:
+                    st.error('The person is having heart disease with {:.2f}% confidence'.format(confidence_percentage))
+                else:
+                    st.success('The person does not have any heart disease 😊 with {:.2f}% confidence'.format(confidence_percentage))
             else:
-                st.success('The person does not have any heart disease 😊')
-            #st.success(heart_diagnosis)
-        else : 
+                st.warning("Confidence percentages are not available for this model.")
+        else:
             st.warning("Please fill all details")
+
             
             
-#Parkinsons Prediction Page
-if(selected == "Parkinson's Prediction"):
-    #Page title
+# Parkinsons Prediction Page
+if selected == "Parkinson's Prediction":
+    # Page title
     st.title('Parkinsons Prediction using ML')
-        # Create columns for better UI with a maximum of 5 inputs per column
+
+    # Create columns for better UI with a maximum of 5 inputs per column
     col1, col2, col3, col4, col5 = st.columns(5)
 
     # Input fields in the first column
@@ -149,17 +170,25 @@ if(selected == "Parkinson's Prediction"):
         D2 = st.text_input('D2 (d2)', key='d2')
         PPE = st.text_input('PPE (ppe)', key='ppe')
 
-        
     parkinsons_diagnosis = ''
 
     # Creating a button for prediction
-    if st.button('Parkinsons Test Result'):
+    if st.button("Parkinson's Test Result"):
         if (fo and fhi and flo and Jitter_percent and Jitter_Abs and RAP and PPQ and DDP and Shimmer and Shimmer_dB and APQ3 and APQ5 and APQ and DDA and NHR and HNR and RPDE and DFA and spread1 and spread2 and D2 and PPE):
+            # Make predictions
             parkinsons_prediction = parkinsons_model.predict([[float(fo), float(fhi), float(flo), float(Jitter_percent), float(Jitter_Abs), float(RAP), float(PPQ), float(DDP), float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5), float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE), float(DFA), float(spread1), float(spread2), float(D2), float(PPE)]])
+            confidence = parkinsons_model.predict_proba([[float(fo), float(fhi), float(flo), float(Jitter_percent), float(Jitter_Abs), float(RAP), float(PPQ), float(DDP), float(Shimmer), float(Shimmer_dB), float(APQ3), float(APQ5), float(APQ), float(DDA), float(NHR), float(HNR), float(RPDE), float(DFA), float(spread1), float(spread2), float(D2), float(PPE)]])
 
-            if (parkinsons_prediction[0] == 1):
-                st.error('The person is suffering from Parkinsons disease')
+            # Check if predictions are available
+            if len(confidence) > 0:
+                # Calculate the confidence percentage for the predicted class
+                confidence_percentage = max(confidence[0]) * 100
+
+                if parkinsons_prediction[0] == 1:
+                    st.error("The person is suffering from Parkinson's disease with {:.2f}% confidence".format(confidence_percentage))
+                else:
+                    st.success("The person is Not suffering from Parkinson's disease 😊 with {:.2f}% confidence".format(confidence_percentage))
             else:
-                st.success('The person is Not suffering from Parkinsons disease 😊')
+                st.warning("Confidence percentages are not available for this model.")
         else:
             st.warning("Please fill all details")
